@@ -2,10 +2,11 @@
 {
     public class ProductDto
     {
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
-        public int Quantity { get; set; } = 0;
+        public int Quantity { get; set; }
 
-        public double Weight { get; set; } = 0;
+        public double Weight { get; set; }
     }
+        
 }

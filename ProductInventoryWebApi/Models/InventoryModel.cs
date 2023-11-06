@@ -6,8 +6,8 @@ public class InventoryModel
 
     public string Name { get; set; }
 
-    public double TotalQuantity { get; set; } = 0;
+    public double TotalQuantity { get; set; } 
 
-    public double TotalWeight { get; set; } = 0;
+    public double TotalWeight { get; set; } 
 
 }
