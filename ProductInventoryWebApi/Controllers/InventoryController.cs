@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductInventoryWebApi.Models;
 using ProductInventoryWebApi.Models.Dto;
+using ProductInventoryWebApi.Models.Dto.Inventory;
+using ProductInventoryWebApi.Models.Dto.Product;
 using ProductInventoryWebApi.Services;
 
 namespace ProductInventoryWebApi.Controllers;
@@ -17,17 +19,17 @@ public class InventoryController : ControllerBase
     }
 
     [HttpPost]
-    public InventoryListDto GetInventories()
+    public async Task<InventoryListDto> GetInventories()
     {
-        var result = _service.GetInventories();
+        var result = await _service.GetInventories();
 
         return result;
     }
 
     [HttpPost]
-    public IActionResult AddInventory([FromBody] AddInventoryDto inventory)
+    public async Task<IActionResult> AddInventory([FromBody] AddInventoryDto inventory)
     {
-        var result = _service.AddInventory(inventory);
+        var result = await _service.AddInventory(inventory);
 
         if (!result.Success)
         {
@@ -37,23 +39,31 @@ public class InventoryController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{inventoryName}")]
-    public ProductListDto GetProducts([FromRoute] string inventoryName)
+    [HttpPost]
+    public async Task<IActionResult> DeleteInventory([FromBody] DeleteInventoryDto inventory)
     {
-        var products = _service.GetProducts(inventoryName);
+        var result = await _service.DeleteInventory(inventory);
 
-        if (products == null)
+        if (!result.Success)
         {
-            BadRequest();
+            return NotFound(result);
         }
+
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<ProductListDto> GetProducts([FromBody] FindInventoryDto inventory)
+    {
+        var products = await _service.GetProducts(inventory);
 
         return products;
     }
 
-    [HttpPost("{inventoryName}")]
-    public IActionResult AddProduct([FromRoute] string inventoryName, [FromBody] ProductDto product)
+    [HttpPost]
+    public async Task<IActionResult> AddProduct([FromBody] AddProductDto product)
     {
-       var result = _service.AddProduct(inventoryName, product);
+       var result = await _service.AddProduct(product);
 
         if (!result.Success)
         {
@@ -63,10 +73,23 @@ public class InventoryController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{inventoryName}")]
-    public IActionResult DeleteProduct([FromRoute] string inventoryName, [FromBody] DeleteProductDto product)
+    [HttpPost]
+    public async Task <IActionResult> DeleteProduct([FromBody] DeleteProductDto product)
     {
-        var result = _service.DeleteProduct(inventoryName, product);
+        var result = await _service.DeleteProduct(product);
+
+        if (!result.Success)
+        {
+            return BadRequest(result);
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditProduct([FromBody] EditProductDto product)
+    {
+        var result = await _service.EditProduct(product);
 
         if (!result.Success)
         {

@@ -8,6 +8,8 @@ public class InventoryModel
 
     public double TotalQuantity { get; set; } 
 
-    public double TotalWeight { get; set; } 
+    public double TotalWeight { get; set; }
+
+    public List<ProductModel> Products { get; set; }
 
 }

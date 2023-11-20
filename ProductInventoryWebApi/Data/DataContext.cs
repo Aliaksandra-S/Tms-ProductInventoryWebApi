@@ -9,7 +9,7 @@ public class DataContext : DbContext
     {
 
     }
-
+  
     public DbSet<ProductModel> Products { get; set; }
 
     public DbSet<InventoryModel> Inventories { get; set; }

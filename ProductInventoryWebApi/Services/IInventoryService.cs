@@ -1,19 +1,25 @@
 ﻿using ProductInventoryWebApi.Models;
 using ProductInventoryWebApi.Models.Dto;
+using ProductInventoryWebApi.Models.Dto.Inventory;
+using ProductInventoryWebApi.Models.Dto.Product;
 
 namespace ProductInventoryWebApi.Services;
 
 public interface IInventoryService
 {
-    InventoryListDto GetInventories();
+    Task<CommandResultModel> AddInventory(AddInventoryDto inventory);
 
-    CommandResultModel AddInventory(AddInventoryDto inventory);
+    Task<CommandResultModel> DeleteInventory(DeleteInventoryDto inventory);
 
-    ProductListDto GetProducts(string inventoryName);
+    Task<InventoryListDto> GetInventories();
 
-    CommandResultModel AddProduct(string inventoryName, ProductDto product);
+    Task<ProductListDto> GetProducts(FindInventoryDto inventory);
 
-    CommandResultModel DeleteProduct(string inventoryName, DeleteProductDto product);
+    Task<CommandResultModel> AddProduct(AddProductDto product);
+
+    Task<CommandResultModel> DeleteProduct(DeleteProductDto product);
+
+    Task<CommandResultModel> EditProduct(EditProductDto productToEdit);
 
 }
 

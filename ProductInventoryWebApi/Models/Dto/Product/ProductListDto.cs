@@ -2,6 +2,6 @@
 {
     public class ProductListDto
     {
-        public ProductDto[] Products { get; set; }
+        public GetProductDto[] Products { get; set; }
     }
 }

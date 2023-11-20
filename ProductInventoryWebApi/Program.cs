@@ -11,15 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-var contextOptions = new DbContextOptionsBuilder<DataContext>()
-    .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+//var contextOptions = new DbContextOptionsBuilder<DataContext>()
+//    .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-using var context = new DataContext(contextOptions.Options);
-
-builder.Services.AddSingleton<IInventoryService>(new InventoryService(context));
+//using var context = new DataContext(contextOptions.Options);
 
 var app = builder.Build();
 
