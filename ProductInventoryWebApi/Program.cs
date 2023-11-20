@@ -16,11 +16,6 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-//var contextOptions = new DbContextOptionsBuilder<DataContext>()
-//    .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-//using var context = new DataContext(contextOptions.Options);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
